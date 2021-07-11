@@ -13,4 +13,7 @@ Pod::Spec.new do |s|
   s.source_files              = 'PKHUD/**/*.{h,swift}'
   s.resource_bundle           = { 'PKHUDResources' => 'PKHUD/*.xcassets' }
   s.swift_version             = '5.0'  
+  s.pod_target_xcconfig = {
+    'SWIFT_ACTIVE_COMPILATION_CONDITIONS' => '$(inherited) IS_FRAMEWORK_TARGET',
+  }
 end
