@@ -122,8 +122,16 @@ open class PKHUD: NSObject {
 
     open var trailingMargin: CGFloat = 0
 
+    private func safeKeyWindow() -> UIWindow? {
+        UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    }
+
     open func show(onView view: UIView? = nil) {
-        let view: UIView = view ?? viewToPresentOn ?? UIApplication.shared.keyWindow!
+        guard let view: UIView = view ?? viewToPresentOn ?? safeKeyWindow() else {
+            assertionFailure()
+            return
+        }
+
         if  !view.subviews.contains(container) {
             view.addSubview(container)
             container.frame.origin = CGPoint.zero
